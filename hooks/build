@@ -1,3 +1,4 @@
 #!/bin/bash
 
+printenv
 docker build --build-arg version=$CACHE_TAG -t $IMAGE_NAME .
