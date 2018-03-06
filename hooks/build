@@ -1,4 +1,3 @@
 #!/bin/bash
 
-printenv
-docker build --build-arg version=$CACHE_TAG -f $DOCKERFILE_PATH -t $IMAGE_NAME .
+docker build --build-arg version=$DOCKER_TAG -f $DOCKERFILE_PATH -t $IMAGE_NAME .
