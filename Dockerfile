@@ -2,11 +2,11 @@ FROM chibidev/emsdk:latest as builder
 
 ARG version=latest
 ENV SDK_VERSION=sdk-tag-${version}-64bit
-RUN if [ "${version}" = "latest" ]; then export SDK_VERSION=sdk-${version}-64bit; fi
 RUN apt update && \
     apt install -y build-essential cmake
 RUN ln -sf /bin/bash /bin/sh
-RUN source /emscripten/emsdk_env.sh && \
+RUN if [ "${version}" = "latest" ]; then export SDK_VERSION=sdk-${version}-64bit; fi && \
+    source /emscripten/emsdk_env.sh && \
     emsdk install --build=Release $SDK_VERSION && \
     emsdk activate $SDK_VERSION && \
     rm -rf /emscripten/clang/*/src && \
