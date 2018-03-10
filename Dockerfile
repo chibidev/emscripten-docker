@@ -2,7 +2,7 @@ FROM chibidev/emsdk:latest as builder
 
 ARG version=latest
 ENV SDK_VERSION=sdk-tag-${version}-64bit
-RUN [[ "${version}" == "latest" ]] && export SDK_VERSION=sdk-${version}-64bit
+RUN if [ "${version}" = "latest" ]; then export SDK_VERSION=sdk-${version}-64bit; fi
 RUN apt update && \
     apt install -y build-essential cmake
 RUN ln -sf /bin/bash /bin/sh
