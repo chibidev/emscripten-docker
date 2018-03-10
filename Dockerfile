@@ -5,9 +5,9 @@ ENV SDK_VERSION=sdk-tag-${version}-64bit
 RUN apt update && \
     apt install -y build-essential cmake
 RUN ln -sf /bin/bash /bin/sh
-RUN if [ "${version}" = "latest" ]; then export SDK_VERSION=sdk-${version}-64bit; fi && \
+RUN if [ "${version}" = "latest" ]; then export SDK_VERSION=sdk-tag-`wget -qO - https://raw.githubusercontent.com/kripken/emscripten/incoming/emscripten-version.txt | cut -d '"' -f 2`-64bit; fi && \
     source /emscripten/emsdk_env.sh && \
-    emsdk install --build=Release $SDK_VERSION && \
+    emsdk install $SDK_VERSION && \
     emsdk activate $SDK_VERSION && \
     rm -rf /emscripten/clang/*/src && \
     find /emscripten/clang/tag*/build_tag* -mindepth 1 -maxdepth 1 ! \( -name 'bin' -o -name 'share' \) -exec rm -rf {} \; && \
